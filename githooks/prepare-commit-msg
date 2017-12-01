@@ -1,0 +1,8 @@
+#!/bin/sh
+#
+
+# need to double backslash to have a literal backslash for sed
+JIRA_HINT_URL_ESCAPED=https:\\/\\/xxxx.atlassian.net\\/somepath\\/APLHA-NUM
+
+# add hint commit message to the first line
+sed -i '' -e '1s/^/ALPHA-NUM '$JIRA_HINT_URL_ESCAPED'\'$'\n/' "$1"

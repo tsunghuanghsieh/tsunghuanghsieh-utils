@@ -1,0 +1,31 @@
+#!/bin/sh
+#
+# An example hook script to check the commit log message.
+# Called by "git commit" with one argument, the name of the file
+# that has the commit message.  The hook should exit with non-zero
+# status after issuing an appropriate message if it wants to stop the
+# commit.  The hook is allowed to edit the commit message file.
+#
+
+COMMIT_MSG_FILE=$1
+JIRA_URL_PREFIX=https://xxxx.atlassian.net/somepath/
+# need to double backslash to have a literal backslash for sed
+JIRA_HINT_URL_ESCAPED=https:\\/\\/xxxx.atlassian.net\\/somepath\\/APLHA-NUM
+
+# The commit message has to start with ticket number, followed by URL to the JIRA ticket on the first line.
+# An example of the required format is as follows.
+# ES-001 https://mycompany.atlassian.net/browse/ES-001
+COMMIT_MSG_RE='^[[:alpha:]]\+-[[:digit:]]\+[[:space:]]\+'$JIRA_URL_PREFIX'[[:alpha:]]\+-[[:digit:]]\+[[:space:]]*$'
+
+# https://answers.atlassian.com/questions/169399
+# Sourcetree only runs prepare-commit-msg hook after clicking Commit button.
+# Let's remove the default hint string added by prepare-commit-msg so that it wouldn't mess up our check next
+sed -i ''  -e '/'$JIRA_HINT_URL_ESCAPED'/d' $COMMIT_MSG_FILE
+
+COMMIT_MSG_OK=`head -n 1 $COMMIT_MSG_FILE | grep $COMMIT_MSG_RE`
+if [[ -z $COMMIT_MSG_OK ]]; then
+    echo >&2 The first line of Git commit message has to be JIRA ticket number,
+    echo >&2 followed by JIRA ticket URL. For example,
+    echo >&2 ES-001 https://mycompany.atlassian.net/browse/ES-001
+    exit 1
+fi
