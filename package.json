@@ -4,7 +4,7 @@
     "description": "Utilities",
     "main": "app.js",
     "scripts": {
-        "preinstall": "echo \"preinstall\"",
+        "preinstall": "./preinstall.sh",
         "lint": "jshint --exclude node_modules .",
         "test": "echo \"Error: no test specified\" && exit 1"
     },

@@ -1,0 +1,1 @@
+cp ./installDockerImg.sh ../..
