@@ -14,5 +14,7 @@ usage() {
 
 #
 RemoveContainer() {
-    BackupIFS=$IFS
+    LocalBakIFS=$IFS
+
+    IFS=$OIFS
 }
