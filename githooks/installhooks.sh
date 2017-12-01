@@ -8,6 +8,10 @@ REPOHOOKS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}")" && pwd)"
 # GITHOOKS_DIR is the default folder in which git searches for client side hooks
 GITHOOKS_DIR=$HOME_DIR/.git/hooks
 
+echo $HOME_DIR
+echo $REPOHOOKS_DIR
+echo $GITHOOKS_DIR
+
 # check for existence of default folder containing client side hooks
 # the folder does not get created by 'git clone', it is created when running 'git init'
 # let's create it if it's not already there
