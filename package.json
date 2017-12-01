@@ -1,0 +1,21 @@
+{
+    "name": "utils",
+    "version": "1.0.0",
+    "description": "Utilities",
+    "main": "app.js",
+    "scripts": {
+        "preinstall": "echo \"preinstall\"",
+        "lint": "jshint --exclude node_modules .",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tsunghuanghsieh/tsunghuanghsieh-utils"
+    },
+    "author": "tsunghuanghsieh",
+    "license": "MIT",
+    "dependencies": {},
+    "engines": {
+        "node": "~6.11.1"
+    }
+}
