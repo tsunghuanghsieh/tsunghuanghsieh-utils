@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # initializations
-# PARENT_DIR is the absolute path to the parent folder of this script
+# HOME_DIR is the absolute path to the parent folder of this script
 HOME_DIR="$( cd "$( dirname "$( dirname "${BASH_SOURCE[0]}")")" && pwd)"
 # REPOHOOKS_DIR is the absolute path to the folder containing this script and all client side hooks
 REPOHOOKS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}")" && pwd)"
