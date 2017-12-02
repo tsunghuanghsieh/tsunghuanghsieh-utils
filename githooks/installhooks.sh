@@ -6,12 +6,19 @@ HOME_DIR="$( cd "$( dirname "$( dirname "${BASH_SOURCE[0]}")")" && pwd)"
 # REPOHOOKS_DIR is the absolute path to the folder containing this script and all client side hooks
 REPOHOOKS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+echo HOME_DIR is $HOME_DIR
+echo REPOHOOKS_DIR is $REPOHOOKS_DIR
+
 if [[ $HOME_DIR =~ 'node_modules' ]]; then
     # When consumed by another repo, HOME_DIR is the absolute path to root of the consuming repo
     HOME_DIR="$( cd "$( dirname "$( dirname "${BASH_SOURCE[0]}")")" && pwd)"
+    echo consumed by repo
+    echo HOME_DIR is now $HOME_DIR
 fi
 # GITHOOKS_DIR is the default folder in which git searches for client side hooks
 GITHOOKS_DIR=$HOME_DIR/.git/hooks
+
+echo GITHOOKS_DIR is $GITHOOKS_DIR
 
 # check for existence of default folder containing client side hooks
 # the folder does not get created by 'git clone', it is created when running 'git init'
