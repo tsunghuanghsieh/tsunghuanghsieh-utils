@@ -24,4 +24,4 @@ fi
 
 
 echo installing git client side hooks...
-# $PARENT_DIR/githooks/installhooks.sh
+$PARENT_DIR/githooks/installhooks.sh
