@@ -8,18 +8,21 @@ if [[ $PARENT_DIR =~ 'node_modules' ]]; then
     # When consumed by another repo, HOME_DIR is the absolute path to root of the consuming repo
     HOME_DIR="$( cd "$( dirname "$( dirname "$PARENT_DIR")")" && pwd)"
 
-    InstallDockerImgScriptFile=installDockerImg.sh
+    DockerScripts="createDockerImg.sh installDockerImg.sh"
+    scriptList=($DockerScripts)
     GitIgnoreFile=.gitignore
 
-    echo cp $PARENT_DIR/$InstallDockerImgScriptFile $HOME_DIR
-    cp $PARENT_DIR/$InstallDockerImgScriptFile $HOME_DIR
+    for script in ${scriptList[@]}; do
+        echo cp $PARENT_DIR/$script $HOME_DIR
+        cp $PARENT_DIR/$script $HOME_DIR
 
-    # add installDockerImg.sh to .gitignore
-    GIT_IGNORE_OK=`head $HOME_DIR/$GitIgnoreFile | grep $InstallDockerImgScriptFile`
-    if [[ -z $GIT_IGNORE_OK ]]; then
-        echo adding $InstallDockerImgScriptFile to $HOME_DIR/$GitIgnoreFile
-        sed -i '' -e '1s/^/'$InstallDockerImgScriptFile'\'$'\n/' "$HOME_DIR/$GitIgnoreFile"
-    fi
+        # add installDockerImg.sh to .gitignore
+        GIT_IGNORE_OK=`head $HOME_DIR/$GitIgnoreFile | grep $script`
+        if [[ -z $GIT_IGNORE_OK ]]; then
+            echo adding $script to $HOME_DIR/$GitIgnoreFile
+            sed -i '' -e '1s/^/'$script'\'$'\n/' "$HOME_DIR/$GitIgnoreFile"
+        fi
+    done
 fi
 
 
