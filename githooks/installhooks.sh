@@ -2,7 +2,7 @@
 
 # initializations
 # HOME_DIR is the absolute path to the parent folder of this script
-HOME_DIR="$( cd "$( dirname "$( dirname "${BASH_SOURCE[0]}")")" && pwd)"
+HOME_DIR="$(cd "$(dirname "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)")" && pwd)"
 # REPOHOOKS_DIR is the absolute path to the folder containing this script and all client side hooks
 REPOHOOKS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}")" && pwd)"
 
@@ -11,7 +11,7 @@ echo REPOHOOKS_DIR is $REPOHOOKS_DIR
 
 if [[ $HOME_DIR =~ 'node_modules' ]]; then
     # When consumed by another repo, HOME_DIR is the absolute path to root of the consuming repo
-    HOME_DIR="$( cd "$( dirname "$( dirname "$HOME_DIR")")" && pwd)"
+    HOME_DIR="$(cd "$(dirname "$(cd "$(dirname "$HOME_DIR")" && pwd)")" && pwd)"
     echo consumed by repo
     echo HOME_DIR is now $HOME_DIR
 fi
