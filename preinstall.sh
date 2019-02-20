@@ -1,30 +1,29 @@
 #!/bin/sh
 
 # HOME_DIR is the absolute path to folder containing this script
-PARENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+HOME_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # We are being consumed by another repo. Let's copy scripts to root of repo for easy access.
-if [[ $PARENT_DIR =~ 'node_modules' ]]; then
-    # When consumed by another repo, HOME_DIR is the absolute path to root of the consuming repo
-    HOME_DIR="$(cd "$(dirname "$(cd "$(dirname "$PARENT_DIR")" && pwd)")" && pwd)"
+if [[ $HOME_DIR =~ 'node_modules' ]]; then
+    # When consumed by another repo, REPO_DIR is the absolute path to root of the consuming repo
+    REPO_DIR="$(cd "$(dirname "$(cd "$(dirname "$HOME_DIR")" && pwd)")" && pwd)"
 
     DockerScripts="createDockerImg.sh installDockerImg.sh"
     scriptList=($DockerScripts)
     GitIgnoreFile=.gitignore
 
     for script in ${scriptList[@]}; do
-        echo cp $PARENT_DIR/$script $HOME_DIR
-        cp $PARENT_DIR/$script $HOME_DIR
+        echo cp $HOME_DIR/$script $REPO_DIR
+        cp $HOME_DIR/$script $REPO_DIR
 
-        # add installDockerImg.sh to .gitignore
-        GIT_IGNORE_OK=`head $HOME_DIR/$GitIgnoreFile | grep $script`
+        # add docker scripts to .gitignore in consuming repo
+        GIT_IGNORE_OK=`head $REPO_DIR/$GitIgnoreFile | grep $script`
         if [[ -z $GIT_IGNORE_OK ]]; then
-            echo adding $script to $HOME_DIR/$GitIgnoreFile
-            sed -i '' -e '1s/^/'$script'\'$'\n/' "$HOME_DIR/$GitIgnoreFile"
+            echo adding $script to $REPO_DIR/$GitIgnoreFile
+            sed -i '' -e '1s/^/'$script'\'$'\n/' "$REPO_DIR/$GitIgnoreFile"
         fi
     done
 fi
 
-
 echo installing git client side hooks...
-$PARENT_DIR/githooks/installhooks.sh
+$HOME_DIR/githooks/installhooks.sh
