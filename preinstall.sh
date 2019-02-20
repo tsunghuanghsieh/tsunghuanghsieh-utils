@@ -1,12 +1,12 @@
 #!/bin/sh
 
 # PARENT_DIR is the absolute path to the parent folder of this script
-PARENT_DIR="$( cd "$( dirname "$( dirname "${BASH_SOURCE[0]}")")" && pwd)"
+PARENT_DIR="$(cd "$(dirname "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)")" && pwd)"
 
 # We are being consumed by another repo. Let's copy scripts to root of repo for easy access.
 if [[ $PARENT_DIR =~ 'node_modules' ]]; then
     # When consumed by another repo, HOME_DIR is the absolute path to root of the consuming repo
-    HOME_DIR="$( cd "$( dirname "$( dirname "$PARENT_DIR")")" && pwd)"
+    HOME_DIR="$(cd "$(dirname "$(cd "$(dirname "$PARENT_DIR")" && pwd)")" && pwd)"
 
     DockerScripts="createDockerImg.sh installDockerImg.sh"
     scriptList=($DockerScripts)
