@@ -1,7 +1,7 @@
 #!/bin/sh
 
-# PARENT_DIR is the absolute path to the parent folder of this script
-PARENT_DIR="$(cd "$(dirname "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)")" && pwd)"
+# HOME_DIR is the absolute path to folder containing this script
+PARENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # We are being consumed by another repo. Let's copy scripts to root of repo for easy access.
 if [[ $PARENT_DIR =~ 'node_modules' ]]; then
