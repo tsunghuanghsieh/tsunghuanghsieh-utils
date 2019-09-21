@@ -18,7 +18,7 @@ DockerImageName='auto_bld*'
 # usage
 #
 usage() {
-    echo `basename $0`: ERROR: $* 1>&2
+    echo -e `basename $0`: "\033[41m\033[30mERROR\033[0m" $* 1>&2
     echo usage: `basename $0` '[server|client|clean]' 1>&2
     exit 1
 }
