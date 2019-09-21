@@ -3,7 +3,7 @@
 HOME_DIR=`pwd`
 
 # use non default separator for sed
-fileslist=`find $HOME_DIR -name "*.png" | sed -e s?$HOME_DIR/??`
+fileslist=`find $HOME_DIR -type f -name "*.png" | sed -e s?$HOME_DIR/??`
 
 # back up default internal field separator (IFS)
 OriginalIFS=$IFS
