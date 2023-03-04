@@ -1,0 +1,20 @@
+# on:
+#   schedule:
+#     # Schedule uses UTC time which is 8 hours ahead of Pacific Time
+#     # min hour day-of-month month day-of-week
+#     - time: '0 8 * * 1-5'
+
+on: [ push ]
+jobs:
+  run_schedule:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v3
+      - name: Create then switch branch
+        run: |
+          branch_name="$(echo release-`date +%y%m%d`)"
+          echo $branch_name
+          git checkout -B $branch_name
+          git push origin $branch_name
+          ls -la
