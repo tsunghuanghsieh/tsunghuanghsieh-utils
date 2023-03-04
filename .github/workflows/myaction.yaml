@@ -17,4 +17,5 @@ jobs:
           echo $branch_name
           git checkout -B $branch_name
           git push origin $branch_name
-          ls -la
+      - name: Do Action
+        run: ls -la
