@@ -20,6 +20,8 @@ jobs:
       - name: Do Action
         run: ls -la
       - name: Cleanup
+        # The variable doesn't survive between steps
         run: |
+          branch_name="$(echo release-`date +%y%m%d`)"
           git branch -D $branch_name
           git push origin --delete $branch_name
